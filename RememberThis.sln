@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RememberThis", "RememberThis\RememberThis.csproj", "{8D31BF79-BF5A-4145-8354-25CC4DB028AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D31BF79-BF5A-4145-8354-25CC4DB028AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D31BF79-BF5A-4145-8354-25CC4DB028AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D31BF79-BF5A-4145-8354-25CC4DB028AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D31BF79-BF5A-4145-8354-25CC4DB028AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RememberThis.HelloPage">
+    <VerticalStackLayout>
+        <Label
+            FontSize="22" 
+            Text="Здравствуй! Я могу помочь тебе подготовиться к экзамену или тесту. Давай в двух шагах объясню, как мной пользоваться."
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            FontAttributes = "Bold" 
+            FontFamily = "Helvetica"/>
+        <Button
+            FontSize="22"
+            Text="Начать"
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            FontFamily = "Helvetica"
+            Clicked="StartButtonClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

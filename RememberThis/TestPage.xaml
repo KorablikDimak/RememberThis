@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RememberThis.TestPage">
+    <StackLayout>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label
+                    Text="Test name:"
+                    FontSize="22"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    FontFamily = "Helvetica"/>
+                <Label
+                    Text="{Binding Name}"
+                    FontSize="22"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    FontFamily = "Helvetica"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label
+                    Text="Question count:"
+                    FontSize="22"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    FontFamily = "Helvetica"/>
+                <Label
+                    Text="{Binding QuestionCount}"
+                    FontSize="22"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    FontFamily = "Helvetica"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <ListView 
+            ItemsSource="{Binding TestListViewData}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label
+                            Text="{Binding Problem}"
+                            FontSize="16"
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center"
+                            FontFamily = "Helvetica"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
