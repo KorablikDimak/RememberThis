@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RememberThis.QuestionPage">
+    <VerticalStackLayout>
+        <Image Source="{Binding ImageName}" WidthRequest="400" HeightRequest="400"/>
+        <HorizontalStackLayout>
+            <Label Text="Problem: "/>
+            <Label Text="{Binding Problem}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Button x:Name="ButtonPrompt" Text="Show prompt" Clicked="ButtonShowPromptOnClicked"/>
+            <Label x:Name="LabelPrompt1" Text="Prompt: " IsVisible="False"/>
+            <Label x:Name="LabelPrompt2" Text="{Binding Prompt}" IsVisible="False"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label Text="Your answer: "/>
+            <Editor x:Name="Answer"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label x:Name="LabelAnswer1" Text="Correct answer" IsVisible="False"/>
+            <Label x:Name="LabelAnswer2" Text="{Binding Answer}" IsVisible="False"/>
+        </HorizontalStackLayout>
+        <Button x:Name="ButtonCommit" Text="Commit" Clicked="ButtonCommitOnClicked"/>
+        <Button x:Name="ButtonContinue" Text="Continue" Clicked="ButtonContinueOnClicked" IsEnabled="False"/>
+    </VerticalStackLayout>
+</ContentPage>

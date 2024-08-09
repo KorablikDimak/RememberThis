@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using RememberThis.ViewModels;
 
 namespace RememberThis;
 
@@ -15,9 +15,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
+        builder.Services.AddSingleton<TestListPage>();
+        builder.Services.AddSingleton<TestListViewModel>();
 
         return builder.Build();
     }

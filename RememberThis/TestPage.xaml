@@ -2,39 +2,46 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RememberThis.TestPage">
-    <StackLayout>
-        <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Label
-                    Text="Test name:"
-                    FontSize="22"
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center"
-                    FontFamily = "Helvetica"/>
-                <Label
-                    Text="{Binding Name}"
-                    FontSize="22"
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center"
-                    FontFamily = "Helvetica"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Label
-                    Text="Question count:"
-                    FontSize="22"
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center"
-                    FontFamily = "Helvetica"/>
-                <Label
-                    Text="{Binding QuestionCount}"
-                    FontSize="22"
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center"
-                    FontFamily = "Helvetica"/>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Button Text="Add question" Clicked="ButtonAddQuestionOnClicked"/>
+            <Button Text="Remove question" Clicked="ButtonRemoveQuestionsOnClicked"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Test name:"
+                FontSize="22"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                FontFamily = "Helvetica"/>
+            <Editor
+                Text="{Binding Name}"
+                FontSize="22"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                FontFamily = "Helvetica"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Question count:"
+                FontSize="22"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                FontFamily = "Helvetica"/>
+            <Label
+                Text="{Binding QuestionCount}"
+                FontSize="22"
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                FontFamily = "Helvetica"/>
+        </HorizontalStackLayout>
+        <Label Text="Progress:"/>
+        <ProgressBar 
+            Progress="{Binding Progress}" 
+            ProgressColor="SeaGreen"/>
         <ListView 
-            ItemsSource="{Binding TestListViewData}">
+            ItemsSource="{Binding QuestionListViewData}"
+            ItemTapped="ListViewOnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -48,5 +55,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+        <Button Text="Start" Clicked="ButtonStartOnClicked"></Button>
+    </VerticalStackLayout>
 </ContentPage>

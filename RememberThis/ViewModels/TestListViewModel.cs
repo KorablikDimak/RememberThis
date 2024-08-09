@@ -32,18 +32,29 @@ public class TestListViewModel : INotifyPropertyChanged
         }
     }
     
-    public void AddTest(Test question)
+    public void AddTest(Test test)
     {
-        _tests.Add(question);
+        _tests.Add(test);
         TestCount = _tests.Count;
-        TestListViewData = _tests.OrderBy(test => test.Progress).ToList();
+        TestListViewData = _tests.OrderBy(t => t.Progress).ToList();
     }
 
-    public void RemoveTest(Test question)
+    public void RemoveTest(Test test)
     {
-        _tests.Remove(question);
+        _tests.Remove(test);
         TestCount = _tests.Count;
-        TestListViewData = _tests.OrderBy(test => test.Progress).ToList();
+        TestListViewData = _tests.OrderBy(t => t.Progress).ToList();
+    }
+
+    public void RemoveTests(List<Test> tests)
+    {
+        foreach (var test in tests)
+        {
+            _tests.Remove(test);
+        }
+        
+        TestCount = _tests.Count;
+        TestListViewData = _tests.OrderBy(t => t.Progress).ToList();
     }
     
     public event PropertyChangedEventHandler? PropertyChanged;

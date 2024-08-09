@@ -6,5 +6,6 @@
     xmlns:local="clr-namespace:RememberThis"
     Title="RememberThis">
     <ShellContent
-        ContentTemplate="{DataTemplate local:TestsListPage}"/>
+        ContentTemplate="{DataTemplate local:TestListPage}"
+        Route="TestListPage"/>
 </Shell>
