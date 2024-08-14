@@ -1,8 +1,8 @@
 ﻿namespace RememberThis;
 
-public partial class MainMenu : Shell
+public partial class AppShell : Shell
 {
-    public MainMenu()
+    public AppShell()
     {
         InitializeComponent();
     }

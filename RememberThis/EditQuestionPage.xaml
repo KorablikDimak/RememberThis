@@ -2,22 +2,111 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RememberThis.EditQuestionPage">
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Problem: "/>
-            <Editor Text="{Binding Problem}"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Image: "/>
-            <Editor Text="{Binding ImageName}"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Prompt: "/>
-            <Editor Text="{Binding Prompt}"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Answer: "/>
-            <Editor Text="{Binding Answer}"/>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+    <ScrollView>
+        <StackLayout>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label 
+                    Grid.Column="0" Grid.Row="0"
+                    Text="Вопрос:"
+                    FontSize="20"
+                    HorizontalOptions="Start"
+                    Margin="10, 0, 10, 0"/>
+                <Border 
+                    Grid.Column="1" Grid.Row="0"
+                    Margin="0, 10, 10, 10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="введите вопрос"
+                        Text="{Binding Problem}"
+                        FontSize="20"/>
+                </Border>
+                <Label 
+                    HorizontalOptions="Start"
+                    Grid.Column="0" Grid.Row="1"
+                    Text="Изображение:"
+                    FontSize="20"
+                    Margin="10, 0, 10, 10"/>
+                <VerticalStackLayout
+                    Grid.Column="1" Grid.Row="1">
+                    <Label
+                        Margin="0, 10, 0, 0"
+                        Text="Выбранный файл:"
+                        FontSize="14"/>
+                    <Label
+                        MaximumWidthRequest="240"
+                        MaximumHeightRequest="40"
+                        Text="{Binding ImageName}"
+                        x:Name="ImageNameLabel"
+                        FontSize="14"/>
+                    <Button
+                        Text="выберете файл"
+                        FontSize="20"
+                        Clicked="ButtonSelectImageOnClicked"
+                        Margin="0, 10, 10, 0"/>
+                    <Button
+                        x:Name="DeleteImageButton"
+                        Text="удалить файл"
+                        FontSize="20"
+                        IsEnabled="False"
+                        Clicked="ButtonDeleteImageOnClicked"
+                        Margin="0, 10, 10, 0"/>
+                </VerticalStackLayout>
+                <Label 
+                    HorizontalOptions="Start"
+                    Grid.Column="0" Grid.Row="2"
+                    Text="Подсказка:"
+                    FontSize="20"
+                    Margin="10, 0, 10, 0"/>
+                <Border  
+                    Grid.Column="1" Grid.Row="2"
+                    Margin="0, 10, 10, 10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="введите подсказку"
+                        Text="{Binding Prompt}"
+                        FontSize="20"/>
+                </Border>
+                <Label 
+                    HorizontalOptions="Start"
+                    Grid.Column="0" Grid.Row="3"
+                    Text="Ответ:"
+                    FontSize="20"
+                    Margin="10, 0, 10, 0"/>
+                <Border  
+                    Grid.Column="1" Grid.Row="3"
+                    Margin="0, 10, 10, 10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="введите ответ"
+                        Text="{Binding Answer}"
+                        FontSize="20"/>
+                </Border>
+            </Grid>
+            <Button
+                Text="Сохранить"
+                FontSize="20"
+                Clicked="ButtonSaveOnClicked"
+                Margin="10"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

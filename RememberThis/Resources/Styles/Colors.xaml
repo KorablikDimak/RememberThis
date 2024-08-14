@@ -6,13 +6,36 @@
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <!-- Light theme -->
+    <Color x:Key="PrimaryLight">#64558f</Color>
+    <Color x:Key="OnPrimaryLight">#ffffff</Color>
+    <Color x:Key="PrimaryContainerLight">#eaddff</Color>
+    <Color x:Key="OnPrimaryContainerLight">#21005d</Color>
+    <Color x:Key="SurfaceLight">#fef7ff</Color>
+    <Color x:Key="SurfaceContainerLight">#e6e0e9</Color>
+    <Color x:Key="SecondaryContainerLight">#e8def8</Color>
+    <Color x:Key="OnSecondaryContainerLight">#1d192b</Color>
+    <Color x:Key="OnSurfaceLight">#1d1b20</Color>
+    <Color x:Key="OnSurfaceContainerLight">#1d1b20</Color>
 
+    <!-- Dark theme -->
+    <Color x:Key="PrimaryDark">#d0bcfe</Color>
+    <Color x:Key="OnPrimaryDark">#381e72</Color>
+    <Color x:Key="PrimaryContainerDark">#4f378b</Color>
+    <Color x:Key="OnPrimaryContainerDark">#eaddff</Color>
+    <Color x:Key="SurfaceDark">#141218</Color>
+    <Color x:Key="SurfaceContainerDark">#1d1b20</Color>
+    <Color x:Key="SecondaryContainerDark">#4a4457</Color>
+    <Color x:Key="OnSecondaryContainerDark">#e8def8</Color>
+    <Color x:Key="OnSurfaceDark">#e6e0e9</Color>
+    <Color x:Key="OnSurfaceContainerDark">#e6e0e9</Color>
+
+    <!-- Other colors -->
+    <Color x:Key="Primary">#64558f</Color>
+    <Color x:Key="Secondary">#64558f</Color>
+    <Color x:Key="Tertiary">#64558f</Color>
+
+    <Color x:Key="Transparent">Transparent</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="Magenta">#D600AA</Color>

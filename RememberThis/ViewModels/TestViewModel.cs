@@ -7,11 +7,11 @@ namespace RememberThis.ViewModels;
 
 public class TestViewModel(Test test) : INotifyPropertyChanged
 {
-    private readonly List<Question> _questions = test.Questions;
     private List<Question> _questionListViewData = test.Questions;
     private int _questionCount = test.Questions.Count;
     private bool _isActive;
     private readonly Queue<Question> _questionQueue = [];
+    private double _progress;
 
     public string Name
     {
@@ -56,32 +56,46 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
         }
     }
 
+    public double Progress
+    {
+        get => test.Progress;
+        private set
+        {
+            if (Math.Abs(_progress - value) < 0.001) return;
+            _progress = value;
+            OnPropertyChanged();
+        }
+    }
+
     public void AddQuestion(Question question)
     {
-        _questions.Add(question);
-        QuestionCount = _questions.Count;
-        QuestionListViewData = _questions.OrderBy(q => q.Problem).ToList();
+        test.Questions.Add(question);
+        QuestionCount = test.Questions.Count;
+        QuestionListViewData = test.Questions.OrderBy(q => q.Problem).ToList();
         _questionQueue.Enqueue(question);
+        Progress = test.Progress;
     }
 
     public void RemoveQuestion(Question question)
     {
-        _questions.Remove(question);
-        QuestionCount = _questions.Count;
-        QuestionListViewData = _questions.OrderBy(q => q.Problem).ToList();
+        test.Questions.Remove(question);
+        QuestionCount = test.Questions.Count;
+        QuestionListViewData = test.Questions.OrderBy(q => q.Problem).ToList();
         _questionQueue.Clear();
+        Progress = test.Progress;
     }
     
     public void RemoveQuestions(List<Question> questions)
     {
         foreach (var question in questions)
         {
-            _questions.Remove(question);
+            test.Questions.Remove(question);
         }
         
-        QuestionCount = _questions.Count;
-        QuestionListViewData = _questions.OrderBy(t => t.Problem).ToList();
+        QuestionCount = test.Questions.Count;
+        QuestionListViewData = test.Questions.OrderBy(t => t.Problem).ToList();
         _questionQueue.Clear();
+        Progress = test.Progress;
     }
 
     public Question? NextQuestion()
@@ -94,6 +108,33 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
         }
         
         return _questionQueue.Count == 0 ? null : _questionQueue.Dequeue();
+    }
+
+    public bool CommitQuestion(Question question, string answer)
+    {
+        if (question.Answer == answer)
+        {
+            question.Progress += 20;
+            Progress = test.Progress;
+            return true;
+        }
+        else
+        {
+            question.Progress -= 20;
+            Progress = test.Progress;
+            return false;
+        }
+    }
+
+    public void Restart()
+    {
+        foreach (var question in test.Questions)
+            question.Progress = 0;
+
+        QuestionCount = test.Questions.Count;
+        QuestionListViewData = test.Questions.OrderBy(t => t.Problem).ToList();
+        _questionQueue.Clear();
+        Progress = test.Progress;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

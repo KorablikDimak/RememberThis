@@ -1,10 +1,15 @@
 ﻿using RememberThis.Models;
+using RememberThis.Services;
 using RememberThis.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RememberThis;
 
 public partial class TestPage : ContentPage
 {
+    public double WidthScaling { get; } = PlatformProperties.WidthScaling;
+    public double HeightScaling { get; } = PlatformProperties.HeightScaling;
+    
     private readonly TestViewModel _test;
     
     public TestPage(Test test)
@@ -14,28 +19,36 @@ public partial class TestPage : ContentPage
         BindingContext = _test;
     }
 
-    private void ListViewOnItemTapped(object? sender, ItemTappedEventArgs e)
+    private async void ListViewOnItemTapped(object? sender, ItemTappedEventArgs e)
     {
-        Navigation.PushAsync(new EditQuestionPage(_test.QuestionListViewData[e.ItemIndex]));
+        await Navigation.PushAsync(new EditQuestionPage(_test.QuestionListViewData[e.ItemIndex]));
     }
     
-    private void ButtonAddQuestionOnClicked(object? sender, EventArgs e)
+    private async void ButtonAddQuestionOnClicked(object? sender, EventArgs e)
     {
-        var question = new Question { Problem = "Question" };
+        Question question = new();
+        await Navigation.PushAsync(new EditQuestionPage(question));
         _test.AddQuestion(question);
-        Navigation.PushAsync(new EditQuestionPage(question));
     }
     
-    private void ButtonRemoveQuestionsOnClicked(object? sender, EventArgs e)
+    private async void ButtonRemoveQuestionsOnClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new DeleteQuestionsPage(_test));
+        await Navigation.PushAsync(new DeleteQuestionsPage(_test));
     }
 
-    private void ButtonStartOnClicked(object? sender, EventArgs e)
+    private async void ButtonStartOnClicked(object? sender, EventArgs e)
     {
+        if (Math.Abs(_test.Progress - 1) < 0.01)
+            _test.Restart();
+
         var question = _test.NextQuestion();
-        if (question == null) return; // TODO alert
+        if (question == null) return;
         _test.IsActive = true;
-        Navigation.PushAsync(new QuestionPage(_test, question));
+        await Navigation.PushAsync(new QuestionPage(_test, question));
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        StartButton.Text = Math.Abs(_test.Progress - 1) < 0.01 ? "Повторить" : "Начать";
     }
 }

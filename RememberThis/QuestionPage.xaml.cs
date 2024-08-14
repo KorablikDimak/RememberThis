@@ -1,10 +1,14 @@
 ﻿using RememberThis.Models;
+using RememberThis.Services;
 using RememberThis.ViewModels;
 
 namespace RememberThis;
 
 public partial class QuestionPage : ContentPage
 {
+    public double WidthScaling { get; } = PlatformProperties.WidthScaling;
+    public double HeightScaling { get; } = PlatformProperties.HeightScaling;
+    
     private readonly TestViewModel _test;
     private readonly Question _question;
     
@@ -25,22 +29,23 @@ public partial class QuestionPage : ContentPage
 
     private void ButtonCommitOnClicked(object? sender, EventArgs e)
     {
-        if (Answer.Text == _question.Answer) _question.Progress += 10;
-        else _question.Progress -= 10;
+        _test.CommitQuestion(_question, Answer.Text);
 
         Answer.IsEnabled = false;
-        LabelAnswer1.IsVisible = true;
         LabelAnswer2.IsVisible = true;
         ButtonPrompt.IsEnabled = false;
         ButtonCommit.IsEnabled = false;
         ButtonContinue.IsEnabled = true;
     }
     
-    private void ButtonContinueOnClicked(object? sender, EventArgs e)
+    private async void ButtonContinueOnClicked(object? sender, EventArgs e)
     {
         var nextQuestion = _test.NextQuestion();
-        if (nextQuestion == null) Navigation.PopAsync();
-        else Navigation.PushAsync(new QuestionPage(_test, nextQuestion));
+        if (nextQuestion == null)
+        {
+            await Navigation.PopAsync();
+        }
+        else await Navigation.PushAsync(new QuestionPage(_test, nextQuestion));
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

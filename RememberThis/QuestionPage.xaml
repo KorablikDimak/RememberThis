@@ -2,26 +2,88 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RememberThis.QuestionPage">
-    <VerticalStackLayout>
-        <Image Source="{Binding ImageName}" WidthRequest="400" HeightRequest="400"/>
-        <HorizontalStackLayout>
-            <Label Text="Problem: "/>
-            <Label Text="{Binding Problem}"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Button x:Name="ButtonPrompt" Text="Show prompt" Clicked="ButtonShowPromptOnClicked"/>
-            <Label x:Name="LabelPrompt1" Text="Prompt: " IsVisible="False"/>
-            <Label x:Name="LabelPrompt2" Text="{Binding Prompt}" IsVisible="False"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label Text="Your answer: "/>
-            <Editor x:Name="Answer"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label x:Name="LabelAnswer1" Text="Correct answer" IsVisible="False"/>
-            <Label x:Name="LabelAnswer2" Text="{Binding Answer}" IsVisible="False"/>
-        </HorizontalStackLayout>
-        <Button x:Name="ButtonCommit" Text="Commit" Clicked="ButtonCommitOnClicked"/>
-        <Button x:Name="ButtonContinue" Text="Continue" Clicked="ButtonContinueOnClicked" IsEnabled="False"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <StackLayout
+            Margin="10">
+            <Image 
+                Source="{Binding ImageName}" 
+                MaximumWidthRequest="400" 
+                MaximumHeightRequest="400"/>
+            <HorizontalStackLayout
+                Margin="0, 10, 0, 0">
+                <Label 
+                    Style="{StaticResource SubLabel}"
+                    Text="Вопрос:"
+                    FontSize="20"/>
+                <Label 
+                    MaximumWidthRequest="336"
+                    Margin="10, 0, 0, 0"
+                    FontSize="20"
+                    Text="{Binding Problem}"/>
+            </HorizontalStackLayout>
+            <Button 
+                FontSize="20"
+                Margin="0, 10, 0, 0"
+                x:Name="ButtonPrompt" 
+                Text="Показать подсказку"
+                Clicked="ButtonShowPromptOnClicked"/>
+            <HorizontalStackLayout
+                Margin="0, 10, 0, 0">
+                <Label
+                    Style="{StaticResource SubLabel}"
+                    x:Name="LabelPrompt1" 
+                    FontSize="20"
+                    Text="Подсказка:" 
+                    IsVisible="False"/>
+                <Label 
+                    MaximumWidthRequest="310"
+                    Margin="10, 0, 0, 0"
+                    x:Name="LabelPrompt2" 
+                    Text="{Binding Prompt}" 
+                    FontSize="20"
+                    IsVisible="False"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout
+                Margin="0, 10, 0, 0">
+                <Label 
+                    Style="{StaticResource SubLabel}"
+                    Text="Ваш ответ: "
+                    FontSize="20"/>
+                <Editor 
+                    AutoSize="TextChanges"
+                    WidthRequest="295"
+                    FontSize="20"
+                    Margin="10, 6, 0, 0"
+                    Placeholder="введите ответ"
+                    x:Name="Answer"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout
+                Margin="0, 10, 0, 0">
+                <Label
+                    Style="{StaticResource SubLabel}"
+                    Text="Правильный ответ:"
+                    FontSize="20"/>
+                <Label 
+                    MaximumWidthRequest="270"
+                    Margin="10, 0, 0, 0"
+                    x:Name="LabelAnswer2" 
+                    Text="{Binding Answer}"
+                    IsVisible="False"
+                    FontSize="20"/>
+            </HorizontalStackLayout>
+            <Button
+                Margin="0, 10, 0, 0"
+                x:Name="ButtonCommit" 
+                Text="Подтвердить" 
+                FontSize="20"
+                Clicked="ButtonCommitOnClicked"/>
+            <Button 
+                Margin="0, 10, 0, 0"
+                x:Name="ButtonContinue" 
+                Text="Продолжить" 
+                FontSize="20"
+                Clicked="ButtonContinueOnClicked" 
+                IsEnabled="False"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

@@ -1,60 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="RememberThis.TestPage">
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Button Text="Add question" Clicked="ButtonAddQuestionOnClicked"/>
-            <Button Text="Remove question" Clicked="ButtonRemoveQuestionsOnClicked"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label
-                Text="Test name:"
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:MathExpressionConverter x:Key="MathExpressionConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            <Grid 
+                Margin="0, 10, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Style="{StaticResource SubLabel}"
+                    Grid.Column="0"
+                    Margin="10, 0, 0, 0"
+                    HorizontalOptions="Start"
+                    Text="Имя теста:"
+                    FontSize="22"/>
+                <Border 
+                    Grid.Column="1"
+                    Margin="0, 0, 10, 0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Editor
+                        Margin="0, 4, 0, 0"
+                        AutoSize="TextChanges"
+                        WidthRequest="270"
+                        Placeholder="введите имя теста"
+                        Text="{Binding Name}"
+                        FontSize="22"/>
+                </Border>
+            </Grid>
+            <Button
+                Text="Добавить вопрос"
+                FontSize="20"
+                Clicked="ButtonAddQuestionOnClicked"
+                Margin="10, 20, 10, 10"/>
+            <Grid
+                MinimumHeightRequest="64"
+                Margin="10, 10, 10, 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="64"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Style="{StaticResource SubLabel}"
+                    Text="Количество вопросов:"
+                    HorizontalOptions="Start"
+                    FontSize="22"/>
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding QuestionCount}"
+                    HorizontalOptions="Start"
+                    FontSize="22"/>
+                <Border
+                    BackgroundColor="Transparent"
+                    Grid.Column="3">
+                    <ImageButton 
+                        Padding="10"
+                        CornerRadius="10"
+                        MaximumHeightRequest="64"
+                        MaximumWidthRequest="64"
+                        Aspect="AspectFill"
+                        Source="{AppThemeBinding Light= 'free_icon_font_trash_light.png', Dark='free_icon_font_trash_dark.png'}"
+                        Clicked="ButtonRemoveQuestionsOnClicked"/>
+                </Border>
+            </Grid>
+            <HorizontalStackLayout
+                Margin="10, 20, 10, 0">
+                <Label 
+                    Style="{StaticResource SubLabel}"
+                    FontSize="22"
+                    Text="Прогресс:"/>
+                <Label 
+                    x:Name="ProgressLabel"
+                    FontSize="22"
+                    Margin="10, 0, 0, 0"
+                    Text="{Binding Progress, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x*100'}"/>
+                <Label 
+                    FontSize="22"
+                    Text="%"/>
+            </HorizontalStackLayout>
+            <ProgressBar 
+                Progress="{Binding Progress}"
+                Margin="10"/>
+            <Button
+                IsEnabled="{Binding QuestionCount}"
+                x:Name="StartButton"
                 FontSize="22"
-                HorizontalOptions="Center" 
-                VerticalOptions="Center"
-                FontFamily = "Helvetica"/>
-            <Editor
-                Text="{Binding Name}"
-                FontSize="22"
-                HorizontalOptions="Center" 
-                VerticalOptions="Center"
-                FontFamily = "Helvetica"/>
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
-            <Label
-                Text="Question count:"
-                FontSize="22"
-                HorizontalOptions="Center" 
-                VerticalOptions="Center"
-                FontFamily = "Helvetica"/>
-            <Label
-                Text="{Binding QuestionCount}"
-                FontSize="22"
-                HorizontalOptions="Center" 
-                VerticalOptions="Center"
-                FontFamily = "Helvetica"/>
-        </HorizontalStackLayout>
-        <Label Text="Progress:"/>
-        <ProgressBar 
-            Progress="{Binding Progress}" 
-            ProgressColor="SeaGreen"/>
-        <ListView 
-            ItemsSource="{Binding QuestionListViewData}"
-            ItemTapped="ListViewOnItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Label
-                            Text="{Binding Problem}"
-                            FontSize="16"
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center"
-                            FontFamily = "Helvetica"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="Start" Clicked="ButtonStartOnClicked"></Button>
-    </VerticalStackLayout>
+                Text="Начать" 
+                Clicked="ButtonStartOnClicked"
+                Margin="10, 0, 10, 10"/>
+            <ListView 
+                VerticalScrollBarVisibility="Never"
+                ItemsSource="{Binding QuestionListViewData}"
+                ItemTapped="ListViewOnItemTapped"
+                RowHeight="60">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Border
+                                Margin="10, 10, 10, 10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5"/>
+                                </Border.StrokeShape>
+                                <Label
+                                    Text="{Binding Problem}"
+                                    FontSize="20"
+                                    Margin="5"/>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

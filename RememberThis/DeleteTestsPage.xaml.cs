@@ -1,10 +1,13 @@
-﻿using RememberThis.Models;
+﻿using RememberThis.Services;
 using RememberThis.ViewModels;
 
 namespace RememberThis;
 
 public partial class DeleteTestsPage : ContentPage
 {
+    public double WidthScaling { get; } = PlatformProperties.WidthScaling;
+    public double HeightScaling { get; } = PlatformProperties.HeightScaling;
+    
     private readonly TestListViewModel _testList;
     
     public DeleteTestsPage(TestListViewModel testList)
@@ -14,9 +17,9 @@ public partial class DeleteTestsPage : ContentPage
         BindingContext = _testList;
     }
 
-    private void ButtonRemoveOnClicked(object? sender, EventArgs e)
+    private async void ButtonRemoveOnClicked(object? sender, EventArgs e)
     {
-        _testList.RemoveTests(TestListView.SelectedItems.Select(test => test as Test ?? new Test()).ToList());
-        Navigation.PopAsync();
+        _testList.RemoveTests(_testList.TestListViewData.Where(test => test.IsChecked).ToList());
+        await Navigation.PopAsync();
     }
 }

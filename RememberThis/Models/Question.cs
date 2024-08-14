@@ -6,6 +6,7 @@ public class Question
     public string Prompt { get; set; } = "";
     public string ImageName { get; set; } = "";
     public string Answer { get; set; } = "";
+    public bool IsChecked { get; set; }
 
     private int _progress;
     public int Progress

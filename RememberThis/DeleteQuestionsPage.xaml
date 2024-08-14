@@ -1,25 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RememberThis.DeleteQuestionsPage">
-    <VerticalStackLayout>
+             x:Class="RememberThis.DeleteQuestionsPage"
+             Title="Список вопросов:">
+    <Grid
+        Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="9*"/>
+            <RowDefinition  Height="1*"/>
+        </Grid.RowDefinitions>
         <CollectionView
+            Grid.Row="0"
             x:Name="QuestionListView"
-            SelectionMode="Multiple" 
             ItemsSource="{Binding QuestionListViewData}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout>
-                        <Label
-                            Text="{Binding Problem}"
-                            FontSize="16"
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center"
-                            FontFamily = "Helvetica"/>
-                    </HorizontalStackLayout>
+                    <Border
+                        Margin="10, 10, 10, 0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5"/>
+                        </Border.StrokeShape>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox
+                                Grid.Column="0" 
+                                HeightRequest="30" 
+                                IsChecked="{Binding IsChecked}"
+                                Margin="10, 0, 0, 0"/>
+                            <HorizontalStackLayout
+                                Grid.Column="1" 
+                                Margin="10, 10, 0, 10">
+                                <Label 
+                                    Text="Вопрос: "
+                                    FontSize="20"></Label>
+                                <Label
+                                    Text="{Binding Problem}"
+                                    FontSize="20"
+                                    Margin="10, 0, 0, 0"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Text="Delete" Clicked="ButtonRemoveOnClicked"/>
-    </VerticalStackLayout>
+        <Button 
+            Grid.Row="1"
+            FontSize="22"
+            Text="Удалить" 
+            Clicked="ButtonRemoveOnClicked"
+            Margin="0, 10, 0, 0"/>
+    </Grid>
 </ContentPage>

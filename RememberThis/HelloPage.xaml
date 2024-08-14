@@ -5,17 +5,10 @@
     <VerticalStackLayout>
         <Label
             FontSize="22" 
-            Text="Здравствуй! Я могу помочь тебе подготовиться к экзамену или тесту. Давай в двух шагах объясню, как мной пользоваться."
-            HorizontalOptions="Center" 
-            VerticalOptions="Center"
-            FontAttributes = "Bold" 
-            FontFamily = "Helvetica"/>
+            Text="Здравствуй! Я могу помочь тебе подготовиться к экзамену или тесту. Давай в двух шагах объясню, как мной пользоваться."/>
         <Button
             FontSize="22"
             Text="Начать"
-            HorizontalOptions="Center" 
-            VerticalOptions="Center"
-            FontFamily = "Helvetica"
             Clicked="StartButtonClicked"/>
     </VerticalStackLayout>
 </ContentPage>

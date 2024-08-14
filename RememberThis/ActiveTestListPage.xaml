@@ -2,15 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="RememberThis.TestListPage"
-             Title="Все тесты">
-
+             x:Class="RememberThis.ActiveTestListPage"
+             Title="Активные тесты">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:MathExpressionConverter x:Key="MathExpressionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
+    
     <StackLayout>
         <Button 
             Text="Добавить тест"
@@ -18,13 +18,13 @@
             Clicked="ButtonAddTestOnClicked" 
             Margin="10, 10, 10, 10"/>
         <ListView 
-            ItemsSource="{Binding TestListViewData}" 
+            ItemsSource="{Binding ActiveTestListViewData}" 
             ItemTapped="ListViewOnItemTapped"
             RowHeight="100">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Border
+                        <Border 
                             Margin="12, 10, 12, 10">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="5"/>
@@ -67,11 +67,11 @@
                 <ColumnDefinition Width="64"/>
             </Grid.ColumnDefinitions>
             <ImageButton 
+                Padding="10"
                 Grid.Column="1"
                 CornerRadius="10"
                 MaximumHeightRequest="64"
                 MaximumWidthRequest="64"
-                Padding="10"
                 Aspect="AspectFill"
                 Source="{AppThemeBinding Light= 'free_icon_font_trash_light.png', Dark='free_icon_font_trash_dark.png'}"
                 Clicked="ButtonRemoveTestsOnClicked"/>

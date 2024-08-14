@@ -4,23 +4,23 @@ using RememberThis.ViewModels;
 
 namespace RememberThis;
 
-public partial class TestListPage : ContentPage
+public partial class ActiveTestListPage : ContentPage
 {
     public double WidthScaling { get; } = PlatformProperties.WidthScaling;
     public double HeightScaling { get; } = PlatformProperties.HeightScaling;
-
+    
     private readonly TestListViewModel _testList;
-
-    public TestListPage(TestListViewModel testListViewModel)
+    
+    public ActiveTestListPage(TestListViewModel testListViewModel)
     {
         InitializeComponent();
         _testList = testListViewModel;
         BindingContext = testListViewModel;
     }
-
+    
     private async void ListViewOnItemTapped(object? sender, ItemTappedEventArgs e)
     {
-        await Navigation.PushAsync(new TestPage(_testList.TestListViewData[e.ItemIndex]));
+        await Navigation.PushAsync(new TestPage(_testList.ActiveTestListViewData[e.ItemIndex]));
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
     }
 
