@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using RememberThis.Services;
 using RememberThis.ViewModels;
 
 namespace RememberThis;
@@ -19,7 +20,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<TestListPage>();
         builder.Services.AddSingleton<ActiveTestListPage>();
         builder.Services.AddSingleton<CompletedTestListPage>();
-        builder.Services.AddSingleton<TestListViewModel>();
+        builder.Services.AddSingleton<TestListViewModel>(_ => new TestListViewModel(Storage.ReadTestList()));
 
         return builder.Build();
     }

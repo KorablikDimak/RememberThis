@@ -1,9 +1,6 @@
 ﻿using Android.App;
 using Android.Content.Res;
-using Android.Graphics;
 using Android.Runtime;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-using Microsoft.Maui.Platform;
 
 namespace RememberThis;
 

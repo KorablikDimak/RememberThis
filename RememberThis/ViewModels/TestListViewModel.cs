@@ -7,11 +7,17 @@ namespace RememberThis.ViewModels;
 
 public class TestListViewModel : INotifyPropertyChanged
 {
-    private readonly List<Test> _tests = [];
+    private readonly List<Test> _tests;
     private List<Test> _testListViewData = [];
     private List<Test> _activeTestListViewData = [];
     private List<Test> _completedTestListViewData = [];
     private int _testsCount;
+
+    public TestListViewModel(List<Test> tests)
+    {
+        _tests = tests;
+        Update();
+    }
     
     public List<Test> TestListViewData 
     {
@@ -56,6 +62,12 @@ public class TestListViewModel : INotifyPropertyChanged
     public void AddTest(Test test)
     {
         _tests.Add(test);
+        Update();
+    }
+
+    public void AddTests(List<Test> tests)
+    {
+        _tests.AddRange(tests);
         Update();
     }
 

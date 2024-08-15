@@ -70,42 +70,35 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
     public void AddQuestion(Question question)
     {
         test.Questions.Add(question);
-        QuestionCount = test.Questions.Count;
-        QuestionListViewData = test.Questions.OrderBy(q => q.Problem).ToList();
-        _questionQueue.Enqueue(question);
-        Progress = test.Progress;
+        Update();
+    }
+    
+    public void AddQuestions(List<Question> questions)
+    {
+        test.Questions.AddRange(questions);
+        Update();
     }
 
     public void RemoveQuestion(Question question)
     {
         test.Questions.Remove(question);
-        QuestionCount = test.Questions.Count;
-        QuestionListViewData = test.Questions.OrderBy(q => q.Problem).ToList();
-        _questionQueue.Clear();
-        Progress = test.Progress;
+        Update();
     }
     
     public void RemoveQuestions(List<Question> questions)
     {
         foreach (var question in questions)
-        {
             test.Questions.Remove(question);
-        }
-        
-        QuestionCount = test.Questions.Count;
-        QuestionListViewData = test.Questions.OrderBy(t => t.Problem).ToList();
-        _questionQueue.Clear();
-        Progress = test.Progress;
+        Update();
     }
 
     public Question? NextQuestion()
     {
-        if (_questionQueue.Count != 0) return _questionQueue.Dequeue();
+        if (_questionQueue.Count != 0) 
+            return _questionQueue.Dequeue();
         
         foreach (var question in QuestionListViewData.Where(question => question.Progress < 100))
-        {
             _questionQueue.Enqueue(question);
-        }
         
         return _questionQueue.Count == 0 ? null : _questionQueue.Dequeue();
     }
@@ -130,7 +123,11 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
     {
         foreach (var question in test.Questions)
             question.Progress = 0;
-
+        Update();
+    }
+    
+    private void Update()
+    {
         QuestionCount = test.Questions.Count;
         QuestionListViewData = test.Questions.OrderBy(t => t.Problem).ToList();
         _questionQueue.Clear();
