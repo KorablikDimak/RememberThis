@@ -21,10 +21,17 @@ public partial class App : Application
             if (testList == null) return;
             Storage.WriteTestList(testList.TestListViewData);
         };
-        
+
+        window.Deactivated += (_, _) =>
+        {
+            var testList = Handler?.MauiContext?.Services.GetService<TestListViewModel>();
+            if (testList == null) return;
+            Storage.WriteTestList(testList.TestListViewData);
+        };
+
         if (!PlatformProperties.IsDesktop()) return window;
-        window.MinimumWidth = window.MaximumWidth = window.Width = PlatformProperties.DefaultWidthMobile * PlatformProperties.WidthScaling;
-        window.MinimumHeight = window.MaximumHeight = window.Height = window.Width * 1.78;
+        window.MinimumWidth = window.Width = PlatformProperties.DefaultWidthMobile * PlatformProperties.WidthScaling;
+        window.MinimumHeight = window.Height = window.Width * 1.78;
         return window;
     }
 }

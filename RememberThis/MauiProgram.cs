@@ -8,13 +8,6 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        var storageReadPermissionStatus = Permissions.RequestAsync<Permissions.StorageRead>().Result;
-        var storageWritePermissionStatus = Permissions.RequestAsync<Permissions.StorageWrite>().Result;
-        
-        if (storageReadPermissionStatus != PermissionStatus.Granted || 
-            storageWritePermissionStatus != PermissionStatus.Granted)
-            throw new InvalidOperationException("Permissions are not granted.");
-        
         var builder = MauiApp.CreateBuilder()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
