@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 
 using RememberThis.Models;
+using RememberThis.Services;
 
 namespace RememberThis.ViewModels;
 
@@ -103,17 +104,29 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
         return _questionQueue.Count == 0 ? null : _questionQueue.Dequeue();
     }
 
+    private const int Factor = 20;
+    
     public bool CommitQuestion(Question question, string answer)
     {
         if (question.Answer == answer)
         {
-            question.Progress += 20;
+            if (question.PromptIsVisible) 
+                question.Progress += Factor * (int) 0.5;
+            else 
+                question.Progress += Factor;
+            
             Progress = test.Progress;
             return true;
         }
         else
         {
-            question.Progress -= 20;
+            var compareResult = Tokenizer.CompareStrings(question.Answer, answer);
+            
+            if (question.PromptIsVisible) 
+                question.Progress += (int) (compareResult * Factor * 0.5) - Factor;
+            else 
+                question.Progress += (int) (compareResult * Factor) - Factor;
+            
             Progress = test.Progress;
             return false;
         }

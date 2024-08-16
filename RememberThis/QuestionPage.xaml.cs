@@ -29,7 +29,7 @@ public partial class QuestionPage : ContentPage
 
     private void ButtonCommitOnClicked(object? sender, EventArgs e)
     {
-        _test.CommitQuestion(_question, Answer.Text);
+        _test.CommitQuestion(_question, Answer.Text ?? "");
 
         Answer.IsEnabled = false;
         LabelAnswer2.IsVisible = true;

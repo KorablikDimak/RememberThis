@@ -7,6 +7,7 @@ public class Question
     public string ImageName { get; set; } = "";
     public string Answer { get; set; } = "";
     public bool IsChecked { get; set; }
+    public bool PromptIsVisible { get; set; }
 
     private int _progress;
     public int Progress
