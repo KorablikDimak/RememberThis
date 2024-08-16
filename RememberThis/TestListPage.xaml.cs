@@ -35,6 +35,7 @@ public partial class TestListPage : ContentPage
     private async void ButtonRemoveTestsOnClicked(object? sender, EventArgs e)
     {
         await Navigation.PushAsync(new DeleteTestsPage(_testList));
+        Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

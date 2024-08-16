@@ -16,32 +16,35 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border
-                        Margin="10, 10, 10, 0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
-                        </Border.StrokeShape>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <CheckBox
-                                Grid.Column="0" 
-                                HeightRequest="30" 
-                                IsChecked="{Binding IsChecked}"
-                                Margin="10, 0, 0, 0"/>
-                            <HorizontalStackLayout
-                                Grid.Column="1" 
-                                Margin="10, 10, 0, 10">
-                                <Label 
-                                    Text="Вопрос: "
-                                    FontSize="20"></Label>
-                                <Label
-                                    Text="{Binding Problem}"
-                                    FontSize="20"
+                        BackgroundColor="Transparent">
+                        <Border
+                            Margin="0, 0, 0, 10">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5"/>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox
+                                    Grid.Column="0" 
+                                    HeightRequest="30" 
+                                    IsChecked="{Binding IsChecked}"
                                     Margin="10, 0, 0, 0"/>
-                            </HorizontalStackLayout>
-                        </Grid>
+                                <HorizontalStackLayout
+                                    Grid.Column="1" 
+                                    Margin="10, 10, 0, 10">
+                                    <Label 
+                                        Text="Вопрос: "
+                                        FontSize="20"></Label>
+                                    <Label
+                                        Text="{Binding Problem}"
+                                        FontSize="20"
+                                        Margin="10, 0, 0, 0"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

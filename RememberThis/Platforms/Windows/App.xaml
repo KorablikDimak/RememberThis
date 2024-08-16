@@ -7,8 +7,6 @@
     <maui:MauiWinUIApplication.Resources>
         <Thickness x:Key="TextControlBorderThemeThickness">0</Thickness>
         <Thickness x:Key="TextControlBorderThemeThicknessFocused">0</Thickness>
-        <StaticResource x:Key="ListViewItemCheckBrush" ResourceKey="ControlAltFillColorTransparent" />
-        <StaticResource x:Key="ListViewItemCheckBoxBrush" ResourceKey="ControlAltFillColorTransparent" />
         <ListViewItemPresenterCheckMode x:Key="ListViewItemCheckMode">Overlay</ListViewItemPresenterCheckMode>
     </maui:MauiWinUIApplication.Resources>
 </maui:MauiWinUIApplication>
