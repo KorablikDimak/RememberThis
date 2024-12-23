@@ -1,5 +1,4 @@
-﻿using RememberThis.Models;
-using RememberThis.Services;
+﻿using RememberThis.Services;
 using RememberThis.ViewModels;
 
 namespace RememberThis;
@@ -11,11 +10,14 @@ public partial class EditQuestionPage : ContentPage
     
     private readonly QuestionViewModel _question;
     
-    public EditQuestionPage(Question question)
+    public EditQuestionPage(QuestionViewModel question)
     {
         InitializeComponent();
-        _question = new QuestionViewModel(question);
+        _question = question;
         BindingContext = _question;
+
+        if (_question.ImageName.Length != 0)
+            DeleteImageButton.IsEnabled = true;
     }
 
     private async void ButtonSelectImageOnClicked(object? sender, EventArgs e)

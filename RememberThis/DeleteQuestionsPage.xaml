@@ -39,7 +39,7 @@
                                         Text="Вопрос: "
                                         FontSize="20"></Label>
                                     <Label
-                                        Text="{Binding Problem}"
+                                        Text="{Binding Answer}"
                                         FontSize="20"
                                         Margin="10, 0, 0, 0"/>
                                 </HorizontalStackLayout>

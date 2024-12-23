@@ -2,30 +2,15 @@
 using System.Runtime.CompilerServices;
 
 using RememberThis.Models;
-using RememberThis.Services;
 
 namespace RememberThis.ViewModels;
 
 public class TestViewModel(Test test) : INotifyPropertyChanged
 {
-    private List<Question> _questionListViewData = test.Questions;
-    private int _questionCount = test.Questions.Count;
-    private bool _isActive;
-    private readonly Queue<Question> _questionQueue = [];
-    private double _progress;
+    public Test Test { get => test; }
 
-    public string Name
-    {
-        get => test.Name;
-        set
-        {
-            if (test.Name == value) return;
-            test.Name = value;
-            OnPropertyChanged();
-        } 
-    }
-    
-    public List<Question> QuestionListViewData 
+    private List<QuestionViewModel> _questionListViewData = test.Questions.Select(question => new QuestionViewModel(question)).ToList();
+    public List<QuestionViewModel> QuestionListViewData
     {
         get => _questionListViewData;
         set
@@ -34,18 +19,8 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-    
-    public int QuestionCount
-    {
-        get => _questionCount;
-        set
-        {
-            if (_questionCount == value) return;
-            _questionCount = value;
-            OnPropertyChanged();
-        }
-    }
 
+    private bool _isActive;
     public bool IsActive
     {
         get => _isActive;
@@ -57,9 +32,45 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
         }
     }
 
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set
+        {
+            if (_isChecked == value) return;
+            _isChecked = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string Name
+    {
+        get => test.Name;
+        set
+        {
+            if (test.Name == value) return;
+            test.Name = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private int _questionCount;
+    public int QuestionCount
+    {
+        get => _questionCount;
+        set
+        {
+            if (_questionCount == value) return;
+            _questionCount = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private double _progress;
     public double Progress
     {
-        get => test.Progress;
+        get => _progress;
         private set
         {
             if (Math.Abs(_progress - value) < 0.001) return;
@@ -93,43 +104,21 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
         Update();
     }
 
-    public Question? NextQuestion()
+    private readonly Queue<QuestionViewModel> _questionQueue = [];
+    public QuestionViewModel? NextQuestion()
     {
         if (_questionQueue.Count != 0) 
             return _questionQueue.Dequeue();
         
-        foreach (var question in QuestionListViewData.Where(question => question.Progress < 100))
+        foreach (var question in test.Questions
+            .Where(question => question.Progress < 100)
+            .OrderBy(t => new Random().Next(1, QuestionCount))
+            .Select(question => new QuestionViewModel(question)))
+        {
             _questionQueue.Enqueue(question);
-        
+        }
+            
         return _questionQueue.Count == 0 ? null : _questionQueue.Dequeue();
-    }
-
-    private const int Factor = 20;
-    
-    public bool CommitQuestion(Question question, string answer)
-    {
-        if (question.Answer == answer)
-        {
-            if (question.PromptIsVisible) 
-                question.Progress += Factor * (int) 0.5;
-            else 
-                question.Progress += Factor;
-            
-            Progress = test.Progress;
-            return true;
-        }
-        else
-        {
-            var compareResult = Tokenizer.CompareStrings(question.Answer, answer);
-            
-            if (question.PromptIsVisible) 
-                question.Progress += (int) (compareResult * Factor * 0.5) - Factor;
-            else 
-                question.Progress += (int) (compareResult * Factor) - Factor;
-            
-            Progress = test.Progress;
-            return false;
-        }
     }
 
     public void Restart()
@@ -138,12 +127,12 @@ public class TestViewModel(Test test) : INotifyPropertyChanged
             question.Progress = 0;
         Update();
     }
-    
-    private void Update()
+
+    public void Update()
     {
-        QuestionCount = test.Questions.Count;
-        QuestionListViewData = test.Questions.OrderBy(t => t.Problem).ToList();
         _questionQueue.Clear();
+        QuestionListViewData = test.Questions.Select(question => new QuestionViewModel(question)).ToList();
+        QuestionCount = test.Questions.Count;
         Progress = test.Progress;
     }
 

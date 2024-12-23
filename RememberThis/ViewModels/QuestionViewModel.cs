@@ -2,11 +2,21 @@
 using System.Runtime.CompilerServices;
 
 using RememberThis.Models;
+using RememberThis.Services;
 
 namespace RememberThis.ViewModels;
 
+public enum CompareResult
+{
+    Correct,
+    Almost,
+    Incorrect
+}
+
 public class QuestionViewModel(Question question) : INotifyPropertyChanged
 {
+    public Question Question { get => question; }
+
     public string Problem
     {
         get => question.Problem;
@@ -60,6 +70,55 @@ public class QuestionViewModel(Question question) : INotifyPropertyChanged
             question.Progress = value;
             OnPropertyChanged();
         }
+    }
+
+    private const int Factor = 20;
+
+    private bool _promptIsVisible;
+    public bool PromptIsVisible
+    {
+        get => _promptIsVisible;
+        set => _promptIsVisible = value;
+    }
+
+    public CompareResult CommitQuestion(string answer)
+    {
+        var compareResult = Tokenizer.CompareStrings(Answer.ToLower(), answer.ToLower());
+
+        if (compareResult == 1)
+        {
+            if (_promptIsVisible)
+                Progress += (int) (Factor * 0.5);
+            else
+                Progress += Factor;
+
+            return CompareResult.Correct;
+        }
+        else if (compareResult >= 0.5)
+        {
+            if (_promptIsVisible)
+                Progress += (int) (compareResult * Factor * 0.25);
+            else
+                Progress += (int) (compareResult * Factor * 0.5);
+
+            return CompareResult.Almost;
+        }
+        else
+        {
+            if (_promptIsVisible)
+                Progress += (int) (compareResult * Factor * 0.25 - Factor);
+            else
+                Progress += (int) (compareResult * Factor * 0.5 - Factor);
+
+            return CompareResult.Incorrect;
+        }
+    }
+
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set => _isChecked = value;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

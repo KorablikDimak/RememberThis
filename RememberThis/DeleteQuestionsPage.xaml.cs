@@ -19,7 +19,10 @@ public partial class DeleteQuestionsPage : ContentPage
 
     private async void ButtonRemoveOnClicked(object? sender, EventArgs e)
     {
-        _test.RemoveQuestions(_test.QuestionListViewData.Where(question => question.IsChecked).ToList());
+        _test.RemoveQuestions(_test.QuestionListViewData
+            .Where(questionViewModel => questionViewModel.IsChecked)
+            .Select(questionViewModel => questionViewModel.Question)
+            .ToList());
         await Navigation.PopAsync();
     }
 }

@@ -27,7 +27,7 @@ public partial class ActiveTestListPage : ContentPage
     private async void ButtonAddTestOnClicked(object? sender, EventArgs e)
     {
         Test test = new();
-        await Navigation.PushAsync(new TestPage(test));
+        await Navigation.PushAsync(new TestPage(new TestViewModel(test)));
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
         _testList.AddTest(test);
     }
@@ -41,6 +41,5 @@ public partial class ActiveTestListPage : ContentPage
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
-        _testList.Update();
     }
 }

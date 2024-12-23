@@ -19,14 +19,14 @@ public partial class App : Application
         {
             var testList = Handler?.MauiContext?.Services.GetService<TestListViewModel>(); 
             if (testList == null) return;
-            Storage.WriteTestList(testList.TestListViewData);
+            Storage.WriteTestList(testList.Tests);
         };
 
         window.Deactivated += (_, _) =>
         {
             var testList = Handler?.MauiContext?.Services.GetService<TestListViewModel>();
             if (testList == null) return;
-            Storage.WriteTestList(testList.TestListViewData);
+            Storage.WriteTestList(testList.Tests);
         };
 
         if (!PlatformProperties.IsDesktop()) return window;

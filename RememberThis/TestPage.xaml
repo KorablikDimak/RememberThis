@@ -69,6 +69,7 @@
                     BackgroundColor="Transparent"
                     Grid.Column="3">
                     <ImageButton 
+                        IsEnabled="{Binding QuestionCount}"
                         Padding="10"
                         CornerRadius="10"
                         MaximumHeightRequest="64"
@@ -117,7 +118,7 @@
                                     <RoundRectangle CornerRadius="5"/>
                                 </Border.StrokeShape>
                                 <Label
-                                    Text="{Binding Problem}"
+                                    Text="{Binding Answer}"
                                     FontSize="20"
                                     Margin="5"/>
                             </Border>

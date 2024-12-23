@@ -8,18 +8,21 @@ public partial class DeleteTestsPage : ContentPage
     public double WidthScaling { get; } = PlatformProperties.WidthScaling;
     public double HeightScaling { get; } = PlatformProperties.HeightScaling;
     
-    private readonly TestListViewModel _testList;
+    private readonly TestListViewModel _testListViewModel;
     
     public DeleteTestsPage(TestListViewModel testList)
     {
         InitializeComponent();
-        _testList = testList;
-        BindingContext = _testList;
+        _testListViewModel = testList;
+        BindingContext = _testListViewModel;
     }
 
     private async void ButtonRemoveOnClicked(object? sender, EventArgs e)
     {
-        _testList.RemoveTests(_testList.TestListViewData.Where(test => test.IsChecked).ToList());
+        _testListViewModel.RemoveTests(_testListViewModel.TestListViewData
+            .Where(testViewModel => testViewModel.IsChecked)
+            .Select(testViewModel => testViewModel.Test)
+            .ToList());
         await Navigation.PopAsync();
     }
 }
